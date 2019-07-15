@@ -47,6 +47,14 @@ and open the template in the editor.
                             <?php if($this->view->teste['count(*)'] != 0) { ?>
                                     <p>(Segue Você)</p>
                             <?php } ?>
+                            
+                            <?php if($usuario['seguindo_s_ou_n'] == 0){ ?>
+                            <a href="#" class="btn btn-success">Seguir</a>  
+                            <?php } ?>
+                            
+                            <?php if($usuario['seguindo_s_ou_n'] == 0){ ?>
+                            <a href="#" class="btn btn-danger">Deixar de seguir</a>
+                            <?php } ?>
                                 </div>
                             </div>
 

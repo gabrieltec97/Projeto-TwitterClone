@@ -162,11 +162,12 @@ class AppController extends Action {
         $this->view->teste = $valor;
 
 
-
         //Métodos de recuperação de seguidores e tweets.
         $this->view->total_tweets = $usuario->getTotalTweets();
         $this->view->total_seguidores = $usuario->totalSeguidores();
         $this->view->total_seguindo = $usuario->totalSeguindo();
+        
+        
 
         $this->render('perfil_usuario');  
     }
