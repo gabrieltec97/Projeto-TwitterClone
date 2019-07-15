@@ -159,7 +159,7 @@ class AppController extends Action {
 
         $this->view->tweets_user = $tweets;
         $this->view->nome = $nome;
-        $this->view->teste = $valor;
+        $this->view->seguimento = $valor;
 
 
         //Métodos de recuperação de seguidores e tweets.
@@ -168,6 +168,10 @@ class AppController extends Action {
         $this->view->total_seguindo = $usuario->totalSeguindo();
         
         
+        //Método de verificação de você segue ou não a pessoa.
+        $verificacao = $usuario->verificaSeguir();
+        
+        $this->view->acao = $verificacao;
 
         $this->render('perfil_usuario');  
     }

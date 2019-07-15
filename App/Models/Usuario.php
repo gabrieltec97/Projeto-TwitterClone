@@ -207,7 +207,7 @@ class Usuario extends Model{
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
-    //Método de verificação de reciprocidade de seguimento.
+    //Método de verificação de segue você.
     public function segueVoce(){
 
         $comando = "select count(*) from tb_usuarios_seguidores 
@@ -219,6 +219,20 @@ class Usuario extends Model{
 
         return $stmt->fetch(\PDO::FETCH_ASSOC);
 
+    }
+    
+    //Método de verificação se você segue ou não a pessoa.
+    public function verificaSeguir(){
+        
+        $comando = "SELECT count(*) FROM tb_usuarios_seguidores 
+                WHERE id_usuario_seguidor = :id_1 and id_usuario_seguido = :id_2";
+        
+        $stmt = $this->db->prepare($comando);
+        $stmt->bindValue(':id_1', $_SESSION['id']);
+        $stmt->bindValue(':id_2', $this->__get('id'));
+        $stmt->execute();
+        
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
 }

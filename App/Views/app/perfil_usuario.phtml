@@ -43,19 +43,24 @@ and open the template in the editor.
                             <div class="row mt-2 mb-2">
                                 <div class="col mb-2">
                                     <span class="perfilPainelNome"><?= $this->view->nome['nome'] ?></span>
-
-                            <?php if($this->view->teste['count(*)'] != 0) { ?>
+                              
+                            <!-- Verificação se o usuário te segue. -->        
+                            <?php if($this->view->seguimento['count(*)'] != 0) { ?>
                                     <p>(Segue Você)</p>
                             <?php } ?>
+                                    
                             
-                            <?php if($usuario['seguindo_s_ou_n'] == 0){ ?>
-                            <a href="#" class="btn btn-success">Seguir</a>  
-                            <?php } ?>
+                            <?php if ($this->view->acao['count(*)'] == 0 )  { ?> 
+                                    
+                            <a href="/acao?acao=seguir&id_usuario=<?php print_r($this->view->tweets_user[0]['id_usuario'])?>" class="btn btn-success">Seguir</a>  
+                            <?php } ?>    
+                            <?php if ($this->view->acao['count(*)'] == 1 ) { ?>
+                            <a href="/acao?acao=deixar_de_seguir&id_usuario=<?php print_r($this->view->tweets_user[0]['id_usuario'])?>" class="btn btn-danger">Deixar de seguir</a>
+                            <?php } ?>        
                             
-                            <?php if($usuario['seguindo_s_ou_n'] == 0){ ?>
-                            <a href="#" class="btn btn-danger">Deixar de seguir</a>
-                            <?php } ?>
-                                </div>
+                            </div>
+                                
+                                
                             </div>
 
                             <div class="row mb-2">

@@ -51,21 +51,21 @@ and open the template in the editor.
                                 <div class="col">
                                     <span class="perfilPainelItem">Tweets</span><br />
                                     <span class="perfilPainelItemValor">
-                                        <?=$this->view->total_tweets['total_tweets'] ?>
+                                        <?= $this->view->total_tweets['total_tweets'] ?>
                                     </span>
                                 </div>
 
                                 <div class="col">
                                     <span class="perfilPainelItem">Seguindo</span><br />
                                     <span class="perfilPainelItemValor">
-                                        <?= ($this->view->total_seguindo['total_seguindo'])  ?>
+                                        <?= ($this->view->total_seguindo['total_seguindo']) ?>
                                     </span>
                                 </div>
 
                                 <div class="col">
                                     <span class="perfilPainelItem">Seguidores</span><br />
                                     <span class="perfilPainelItemValor">
-                                        <?= ($this->view->total_seguidores['total_seguidores'])  ?>
+                                        <?= ($this->view->total_seguidores['total_seguidores']) ?>
                                     </span>
                                 </div>
 
@@ -103,19 +103,21 @@ and open the template in the editor.
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <b><?= $usuario['nome'] ?></b>
+
+                                                <!-- Redirecionando o usuário para o perfil de outro. -->
+                                                <a href="/perfil?id_user=<?= $usuario['id']; ?>"<b><?= $usuario['nome'] ?></b></a>
                                             </div>
                                             <div class="col-md-12 col-sm-12 d-flex justify-content-end">
                                                 <div>
-           <!-- Fazendo a verificação se o usuário está sendo seguido ou não.  -->                                         
-                                                                                          
-          <?php if($usuario['seguindo_s_ou_n'] == 0){ ?>                                          
-          <a href="/acao?acao=seguir&id_usuario=<?= $usuario['id'] ?>" class="btn btn-success">Seguir</a>
-          <?php } ?>
-          
-          <?php if($usuario['seguindo_s_ou_n'] == 1){ ?>    
-          <a href="/acao?acao=deixar_de_seguir&id_usuario=<?= $usuario['id'] ?>" class="btn btn-danger">Deixar de seguir</a>
-          <?php } ?>
+
+                                                    <!-- Fazendo a verificação se o usuário está sendo seguido ou não.  -->                                                                                                                       
+                                                    <?php if ($usuario['seguindo_s_ou_n'] == 0) { ?>                                          
+                                                        <a href="/acao?acao=seguir&id_usuario=<?= $usuario['id'] ?>" class="btn btn-success">Seguir</a>
+                                                    <?php } ?>
+
+                                                    <?php if ($usuario['seguindo_s_ou_n'] == 1) { ?>    
+                                                        <a href="/acao?acao=deixar_de_seguir&id_usuario=<?= $usuario['id'] ?>" class="btn btn-danger">Deixar de seguir</a>
+                                                    <?php } ?>
                                                 </div>
                                             </div>
                                         </div>
