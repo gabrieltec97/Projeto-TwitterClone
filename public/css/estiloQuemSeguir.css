@@ -1,0 +1,32 @@
+
+.body{
+background-image: url('/img/fundo.jpg');
+background-repeat: no-repeat;
+background-size: cover;
+height:80vh;
+background-attachment: fixed;
+background-position:center;
+}
+
+.navbar{
+background-color: black;
+}
+
+.txtArea{
+resize: none; 
+background-color: #E6E6FA;
+}
+
+.perfil{
+background-color: #B0C4DE;
+border: 1px solid #B0C4DE;
+border-radius: 3px;
+}
+
+.perfilPainelItem{
+color: black;
+}
+
+.card{
+background-color: #B0C4DE;
+}

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Timeline</title>
+
+        <!-- Importação do arquivo de css desta página -->
+        <link rel="stylesheet" href="/css/estiloTimeline.css" />
+    </head>
+
+<body class="body">
+
+        <nav class="navbar navbar-expand-lg menu justify-content-end">
+            <div class="navbar-nav">
+                <a class="menuItem" href="/timeline">
+                    Home
+                </a>
+
+                <a class="menuItem" href="/sair">
+                    Sair
+                </a>
+                <img src="/img/logo2.png" class="menuIco" />
+            </div>
+        </nav>
+
+        <div class="container mt-5">
+            <div class="row pt-2">
+
+                <div class="col-md-3">
+
+                    <div class="perfil">
+                        <div class="perfilTopo">
+
+                        </div>
+
+                        <div class="perfilPainel">
+
+                            <div class="row mt-2 mb-2">
+                                <div class="col mb-2">
+                                    <span class="perfilPainelNome"><?= $this->view->nome['nome'] ?></span>
+
+                            <?php if($this->view->teste['count(*)'] != 0) { ?>
+                                    <p>(Segue Você)</p>
+                            <?php } ?>
+                                </div>
+                            </div>
+
+                            <div class="row mb-2">
+
+                                <div class="col">
+                                    <span class="perfilPainelItem">Tweets</span><br />
+                                    <span class="perfilPainelItemValor">
+                                        <?= $this->view->total_tweets['total_tweets']?></span>
+                                </div>
+
+                                <div class="col">
+                                    <span class="perfilPainelItem">Seguindo</span><br />
+                                    <span class="perfilPainelItemValor">
+                                        <?= $this->view->total_seguindo['total_seguindo']  ?>
+                                    </span>
+                                </div>
+
+                                <div class="col">
+                                    <span class="perfilPainelItem">Seguidores</span><br />
+                                    <span class="perfilPainelItemValor">
+                                        <?= $this->view->total_seguidores['total_seguidores']  ?>
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+                    <div class="row mb-2">
+                        <div class="col tweetBox tt1">
+                            <form method="post" action="/tweet">
+                                <textarea class="form-control txtArea" name="tweet" id="exampleFormControlTextarea1" rows="3"></textarea>
+
+                                <div class="col mt-2 d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-primary">Tweetar</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                     
+                     <!-- Imprimindo dinamicamente os tweets em tela. -->
+                    <?php foreach ($this->view->tweets_user as $id_tweet => $tweet) { ?>
+
+                        <div class="row tweet corpoTweet mb-3">
+                            <div class="col">
+                                <p>
+                                <strong><a href="/perfil?id_user=<?= $tweet['id_usuario'] ?>">
+                                <?= $this->view->nome['nome'] ?></a></strong> 
+                                <span class="text text-muted">-<small><?= $tweet['data'] ?></small></span></p>
+                                <p><?= $tweet['tweet'] ?></p>
+                                <br />
+                        
+                                <!-- Botão de remoção do tweet -->
+                                <?php if($tweet['id_usuario'] == $_SESSION['id']){ ?>
+                                
+                                <form method="post" action="/remover">
+                                    
+                                    <!-- Input hidden somente para a passagem de parâmetros -->
+                                    <input type="hidden" name="tweetId" value="<?= $tweet['id'] ?>"/>
+                                    <div class="col d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-danger"><small>Remover</small></button>
+                                    </div>
+                                </form>
+                                
+                                <?php } ?>
+                            </div>
+                        </div>
+
+                    <?php } ?>
+
+
+                </div>
+
+                <div class="col-md-3">
+                    <div class="quemSeguir">
+                        <span class="quemSeguirTitulo">Quem seguir</span><br />
+                        <hr />
+                        <a href="/quem_seguir" class="quemSeguirTxt">Procurar por pessoas conhecidas&nbsp; <i class="fas fa-user-plus fa-1x"></i></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </body>
+</html>
+
+
+
+
+
