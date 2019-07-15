@@ -199,12 +199,12 @@ class Usuario extends Model{
     //Método para retornar o nome do usuário.
     public function retornaNomeUsuario(){
 
-        $comando = "SELECT nome FROM tb_usuarios WHERE id = :id_usuario";
+        $comando = "SELECT nome, id FROM tb_usuarios WHERE id = :id_usuario";
         $stmt = $this->db->prepare($comando);
         $stmt->bindValue(':id_usuario', $this->__get('id'));
         $stmt->execute();
 
-        return $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     //Método de verificação de segue você.
