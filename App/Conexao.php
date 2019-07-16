@@ -2,8 +2,8 @@
 
 namespace App;
 
-
-class Conexao {
+class Conexao
+{
     
     public static function getDB(){
         

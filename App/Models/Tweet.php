@@ -4,34 +4,42 @@ namespace App\Models;
 
 use MF\Model\Model;
 
-class Tweet extends Model {
+class Tweet extends Model
+{
 
-    private $id, $id_usuario, $tweet, $data;
+    private $id;
+    private $id_usuario;
+    private $tweet;
+    private $data;
 
-    public function __get($atributo) {
-        return $this->$atributo;
-    }
+public function __get($atributo){
+    return $this->$atributo;
+}
 
-    public function __set($atributo, $valor) {
-        $this->$atributo = $valor;
-    }
+public function __set($atributo, $valor){
+    $this->$atributo = $valor;
+}
     
-    //Método de salvamento de tweets.
-    public function salvar(){
+//Método de salvamento de tweets.
+public function salvar(){
         
-        $comando = "insert into tb_tweets (id_usuario, tweet) values (:id_usuario, :tweet)";
-        $stmt = $this->db->prepare($comando);
-        $stmt->bindValue(':id_usuario', $this->__get('id_usuario'));
-        $stmt->bindValue(':tweet', $this->__get('tweet'));
-        $stmt->execute();
-        
-        return $this;
-    }
+    $comando = "insert into tb_tweets (id_usuario, tweet) values (:id_usuario, :tweet)";
     
-    //Método de recuperação de registros.
-    public function getAll(){
+    $stmt = $this->db->prepare($comando);
+    
+    $stmt->bindValue(':id_usuario', $this->__get('id_usuario'));
+    
+    $stmt->bindValue(':tweet', $this->__get('tweet'));
+    
+    $stmt->execute();
         
-        $comando = "select 
+    return $this;
+}
+    
+//Método de recuperação de registros.
+public function getAll(){
+        
+    $comando = "select 
                 t.id, t.id_usuario,
                 u.nome,
                 t.tweet,
@@ -47,23 +55,25 @@ class Tweet extends Model {
                 t.data
             desc";
         
-        $stmt= $this->db->prepare($comando);
-        $stmt->bindValue(':id_usuario', $this->__get('id_usuario'));
-        $stmt->execute();
-        
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-    }
+    $stmt= $this->db->prepare($comando);
     
-    //Método de remoção de tweet.
-    public function removeTweet($id_tweet){
+    $stmt->bindValue(':id_usuario', $this->__get('id_usuario'));
+    
+    $stmt->execute();
         
-        $comando = "delete from tb_tweets where id = :id";
-        $stmt = $this->db->prepare($comando);
-        $stmt->bindValue(':id', $_POST['tweetId']);
-        $stmt->execute();
+    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+}
+    
+//Método de remoção de tweet.
+public function removeTweet($id_tweet){
         
-        return true;
-    }
+    $comando = "delete from tb_tweets where id = :id";
+    $stmt = $this->db->prepare($comando);
+    $stmt->bindValue(':id', $_POST['tweetId']);
+    $stmt->execute();
+        
+    return true;
+}
     
     
    
