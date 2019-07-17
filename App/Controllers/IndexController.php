@@ -61,7 +61,7 @@ public function esqueciMinhaSenha(){
 //Action de captura e tratamento de dados.
 public function novaSenha(){
     
-    $usuario = Container::getModel('usuario');
+   $usuario = Container::getModel('usuario');
     
    $user = $_POST['email'];
     
