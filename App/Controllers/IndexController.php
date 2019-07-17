@@ -71,30 +71,63 @@ public function novaSenha(){
    $teste = $usuario->capturaId();
     
    $id = $teste['id'];
+   
+   //Atribuindo a variável ao escopo global.
+   $this->view->teste = $id;
     
-   //Encapsulando para id.
    $usuario->__set('id', $id);
     
    //Gerando código
    $codigo = rand(100000,500000);
     
-   //Encapsulando para código.
    $usuario->__set('codigo', $codigo);
     
    //Chamando a função de inserção de código no banco.
    $usuario->insereCodigo();
    
-   $this->render('trocar_senha'); 
+   $this->render('trocar_senha');
 }
 
-//Action de troca de senha.
+//Action de captura de codigo e nova senha.
 public function trocarSenha(){
-    
-    $codigo = $_POST['codigo'];
-    
-    $novaSenha = $_POST['novaSenha'];
+
+   $this->render('trocar_senha');
    
-    
-   $this->render('trocar_senha'); 
+}
+
+//Action de alteração de senha.
+public function alterarSenha(){
+   
+    //Instância de usuário.
+   $usuario = Container::getModel('usuario');
+   
+   //Capturando e encapsulando id, código e senha.
+   $id = $_POST['id'];
+   
+   $codigo = $_POST['codigo'];
+   
+   $novaSenha = $_POST['novaSenha'];
+   
+   $usuario->__set('id', $id);
+   
+   $usuario->__set('codigo', $codigo);
+   
+   $usuario->__set('senha', md5($novaSenha));
+   
+   $verificacao = $usuario->verificaCodigo();
+   
+   //Primeiro tratamento de verificação de código.
+   if($verificacao['count(*)'] == 1){
+       
+        $usuario->atualizaSenha();
+        $usuario->removeCodigo();
+   
+        header('Location: /');
+       
+   }else{
+       header('Location: /esqueciMinhaSenha');
+   }
+   
+   
 }
 }

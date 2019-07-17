@@ -93,6 +93,12 @@ protected function initRoutes(){
         'controller' => 'IndexController',
         'action' => 'trocarSenha'
     );
+    
+     $routes['alterarSenha'] = array(
+        'route' => '/alterarSenha',
+        'controller' => 'IndexController',
+        'action' => 'alterarSenha'
+    );
 
     $this->setRoutes($routes);
 }

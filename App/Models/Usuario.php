@@ -300,4 +300,48 @@ public function insereCodigo(){
     
     return true;
 }
+
+//Função de verificação de código.
+public function verificaCodigo(){
+    
+    $comando = "SELECT count(*) FROM tb_usuarios WHERE codigo = :codigo";
+    
+    $stmt = $this->db->prepare($comando);
+    
+    $stmt->bindValue(':codigo', $this->__get('codigo'));
+    
+    $stmt->execute();
+    
+    return $stmt->fetch(\PDO::FETCH_ASSOC);
+}
+
+//Função de troca de senha no banco.
+public function atualizaSenha(){
+    
+    $comando = "UPDATE tb_usuarios set senha = :senha where id = :id";
+    
+    $stmt = $this->db->prepare($comando);
+    
+    $stmt->bindValue(':senha', $this->__get('senha'));
+    
+    $stmt->bindValue(':id', $this->__get('id'));
+    
+    $stmt->execute();
+    
+    return true;
+}
+
+//Função que limpa o campo código do usuário.
+public function removeCodigo(){
+    
+    $comando = "UPDATE tb_usuarios set codigo = null where id = :id";
+    
+    $stmt = $this->db->prepare($comando);
+    
+    $stmt->bindValue(':id', $this->__get('id'));
+    
+    $stmt->execute();
+    
+    return true;
+}
 }

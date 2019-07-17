@@ -43,11 +43,11 @@ and open the template in the editor.
             <div class="row">
               <div class="col">
 
-                <form action="/trocarSenha" method="post">
+                <form action="/alterarSenha" method="post">
+                    <input type="hidden" name="id" value="<?= $this->view->teste ?>"/>
                   <div class="form-group">
                       <input type="number" name="codigo" class="form-control" placeholder="Código" required>
                   </div>
-
                   <div class="form-group">
                       <input type="text" name="novaSenha" class="form-control" placeholder="Digite sua nova senha" required="novaSenha">
                   </div>  
