@@ -12,6 +12,7 @@ class Usuario extends Model
     private $nome;
     private $email;
     private $senha;
+    private $codigo;
     
 public function __get($atributo){
     return $this->$atributo;
@@ -87,6 +88,7 @@ public function autenticar(){
         
     $stmt = $this->db->prepare($comando);
     $stmt->bindValue(':email', $this->__get('email'));
+    
     $stmt->bindValue(':senha', $this->__get('senha'));
         
     $stmt->execute();
@@ -267,5 +269,35 @@ public function verificaSeguir(){
     $stmt->execute();
         
     return $stmt->fetch(\PDO::FETCH_ASSOC);
+}
+
+//Método que captura o id do usuário.
+public function capturaId(){
+    
+    $comando = "SELECT id FROM tb_usuarios WHERE email like :email";
+    
+    $stmt = $this->db->prepare($comando);
+    
+    $stmt->bindValue(':email', '%' . $this->__get('email') . '%');
+    
+    $stmt->execute();
+    
+    return $stmt->fetch(\PDO::FETCH_ASSOC);
+}
+
+//Método que insere o código no banco.
+public function insereCodigo(){
+    
+    $comando = "UPDATE tb_usuarios SET codigo = :codigo WHERE id = :id";
+    
+    $stmt = $this->db->prepare($comando);
+    
+    $stmt->bindValue(':codigo', $this->__get('codigo'));
+    
+    $stmt->bindValue(':id', $this->__get('id'));
+    
+    $stmt->execute();
+    
+    return true;
 }
 }

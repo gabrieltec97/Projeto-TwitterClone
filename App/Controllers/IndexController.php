@@ -51,4 +51,50 @@ public function registrar(){
         $this->render('inscreverse');
     }
     }
+    
+//Action de esqueci senha.
+public function esqueciMinhaSenha(){
+    
+   $this->render('esqueci_senha');
+}
+
+//Action de captura e tratamento de dados.
+public function novaSenha(){
+    
+    $usuario = Container::getModel('usuario');
+    
+   $user = $_POST['email'];
+    
+   $usuario->__set('email', $user);
+    
+   //Chamando método de captura de ID.
+   $teste = $usuario->capturaId();
+    
+   $id = $teste['id'];
+    
+   //Encapsulando para id.
+   $usuario->__set('id', $id);
+    
+   //Gerando código
+   $codigo = rand(100000,500000);
+    
+   //Encapsulando para código.
+   $usuario->__set('codigo', $codigo);
+    
+   //Chamando a função de inserção de código no banco.
+   $usuario->insereCodigo();
+   
+   $this->render('trocar_senha'); 
+}
+
+//Action de troca de senha.
+public function trocarSenha(){
+    
+    $codigo = $_POST['codigo'];
+    
+    $novaSenha = $_POST['novaSenha'];
+   
+    
+   $this->render('trocar_senha'); 
+}
 }

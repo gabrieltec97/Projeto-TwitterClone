@@ -75,6 +75,24 @@ protected function initRoutes(){
         'controller' => 'AppController',
         'action' => 'perfil'
     );
+    
+    $routes['esqueciMinhaSenha'] = array(
+        'route' => '/esqueciMinhaSenha',
+        'controller' => 'IndexController',
+        'action' => 'esqueciMinhaSenha'
+    );
+    
+    $routes['novaSenha'] = array(
+        'route' => '/novaSenha',
+        'controller' => 'IndexController',
+        'action' => 'novaSenha'
+    );
+    
+    $routes['trocarSenha'] = array(
+        'route' => '/trocarSenha',
+        'controller' => 'IndexController',
+        'action' => 'trocarSenha'
+    );
 
     $this->setRoutes($routes);
 }
