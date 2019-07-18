@@ -56,8 +56,18 @@ and open the template in the editor.
                         Use este código para fazer a alteração da sua senha.</b>
                     </small>
                 </div>
+                  
+                  <?php if($this->view->verifica == "erro") { ?>
+                  <div class="row">
+                    <div class="col">
+                        <span class="text text-danger">Você digitou um código ou um e-mail inválido.
+                        Digite novamente seu e-mail para que um novo código seja gerado.</span>
+                    </div>
+                </div>
+                  <?php } ?>
             </form>
 
+                  
         </div>
     </div>
 

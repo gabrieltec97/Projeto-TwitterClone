@@ -55,6 +55,11 @@ public function registrar(){
 //Action de esqueci senha.
 public function esqueciMinhaSenha(){
     
+   /*Fizemos esse objeto global para que
+    pudéssemos verificar se há erro ou na 
+    troca de senha.*/
+   $this->view->verifica = isset($_GET['verificar']) ? $_GET['verificar'] : '';
+    
    $this->render('esqueci_senha');
 }
 
@@ -72,6 +77,8 @@ public function novaSenha(){
     
    $id = $teste['id'];
    
+   $this->view->verifica_senha = isset($_GET['verificar']) ? $_GET['verificar'] : '';
+   
    //Atribuindo a variável ao escopo global.
    $this->view->teste = $id;
     
@@ -86,13 +93,17 @@ public function novaSenha(){
    $usuario->insereCodigo();
    
    $this->render('trocar_senha');
+   
+   
+   
 }
 
 //Action de captura de codigo e nova senha.
 public function trocarSenha(){
 
+   $this->view->verifica_senha = isset($_GET['verificar']) ? $_GET['verificar'] : '';
+    
    $this->render('trocar_senha');
-   
 }
 
 //Action de alteração de senha.
@@ -106,6 +117,11 @@ public function alterarSenha(){
    
    $codigo = $_POST['codigo'];
    
+   /*Esta é a nova senha que o usuário digita
+   primeiro, esta senha não será encapsulada, 
+   pois ela só serve para fins de comparação.*/
+   $novaSenha_1 = $_POST['novaSenha1'];
+   
    $novaSenha = $_POST['novaSenha'];
    
    $usuario->__set('id', $id);
@@ -117,15 +133,21 @@ public function alterarSenha(){
    $verificacao = $usuario->verificaCodigo();
    
    //Primeiro tratamento de verificação de código.
-   if($verificacao['count(*)'] == 1){
+   if($verificacao['count(*)'] == 1 && $novaSenha == $novaSenha_1){
        
         $usuario->atualizaSenha();
+        
         $usuario->removeCodigo();
    
         header('Location: /');
        
+   }elseif($novaSenha != $novaSenha_1){
+       
+        header('Location: /trocarSenha?verificar=erro'); 
    }else{
-       header('Location: /esqueciMinhaSenha');
+     
+       $usuario->removeCodigo();
+       header('Location: /esqueciMinhaSenha?verificar=erro');
    }
    
    

@@ -49,7 +49,7 @@ and open the template in the editor.
                       <input type="number" name="codigo" class="form-control" placeholder="Código" required>
                   </div>
                   <div class="form-group">
-                      <input type="text" name="novaSenha" class="form-control" placeholder="Digite sua nova senha" required="novaSenha">
+                      <input type="text" name="novaSenha1" class="form-control" placeholder="Digite sua nova senha" required="novaSenha">
                   </div>  
 
                   <div class="form-group">
@@ -62,9 +62,17 @@ and open the template in the editor.
                     <small class="form-text">
                         <b> Digite uma senha com no mínimo 5 caracteres. Dica: Faça uma senha com letras e números.</b>
                     </small>
-                </div>
+                  </div>
             </form>
-
+                  
+                  <?php if( $this->view->verifica_senha == 'erro') { ?>
+                  <div class="mt-4 mb-4">
+                    <small class="form-text text-danger">
+                        <b> As senhas que você digitou não coincidem. Certifique-se que está digitando a mesma senha
+                        nos dois campos.</b>
+                    </small>
+                  </div>
+                  <?php } ?>
         </div>
     </div>
 </div>
