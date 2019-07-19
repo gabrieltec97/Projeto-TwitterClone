@@ -96,6 +96,8 @@ public function novaSenha(){
 }
 
 //Action de captura de codigo e nova senha.
+/*Esta action apenas renderiza a tela caso
+alguma verificação falhe*/
 public function trocarSenha(){
    
    //Atribuição de verificação se as senhas coincidem.
