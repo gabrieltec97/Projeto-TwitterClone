@@ -73,16 +73,16 @@ public function novaSenha(){
    $usuario->__set('email', $user);
     
    //Chamando método de captura de ID.
-   $teste = $usuario->capturaId();
+   $capturarId = $usuario->capturaId();
     
-   $id = $teste['id'];
+   $id = $capturarId['id'];
+   
+   $usuario->__set('id', $id);
    
    $this->view->verifica_senha = isset($_GET['verificar']) ? $_GET['verificar'] : '';
    
    //Atribuindo a variável ao escopo global.
-   $this->view->teste = $id;
-    
-   $usuario->__set('id', $id);
+   $this->view->id = $id;
     
    //Gerando código
    $codigo = rand(100000,500000);
@@ -93,14 +93,12 @@ public function novaSenha(){
    $usuario->insereCodigo();
    
    $this->render('trocar_senha');
-   
-   
-   
 }
 
 //Action de captura de codigo e nova senha.
 public function trocarSenha(){
-
+   
+   //Atribuição de verificação se as senhas coincidem.
    $this->view->verifica_senha = isset($_GET['verificar']) ? $_GET['verificar'] : '';
     
    $this->render('trocar_senha');
@@ -109,7 +107,6 @@ public function trocarSenha(){
 //Action de alteração de senha.
 public function alterarSenha(){
    
-    //Instância de usuário.
    $usuario = Container::getModel('usuario');
    
    //Capturando e encapsulando id, código e senha.
@@ -135,21 +132,19 @@ public function alterarSenha(){
    //Primeiro tratamento de verificação de código.
    if($verificacao['count(*)'] == 1 && $novaSenha == $novaSenha_1){
        
-        $usuario->atualizaSenha();
-        
-        $usuario->removeCodigo();
+       $usuario->atualizaSenha();
+       
+       $usuario->removeCodigo();
    
-        header('Location: /');
+       header('Location: /');
        
    }elseif($novaSenha != $novaSenha_1){
-       
+    
         header('Location: /trocarSenha?verificar=erro'); 
    }else{
      
        $usuario->removeCodigo();
        header('Location: /esqueciMinhaSenha?verificar=erro');
-   }
-   
-   
+   }  
 }
 }
