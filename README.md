@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://www.php.net" target="_blank">
-    <img src="https://images.seeklogo.com/logo-png/26/1/php-logo-png_seeklogo-265704.png" width="300" alt="PHP Logo">
+    <img src="public/img/php-logo.png" width="300" alt="PHP Logo">
   </a>
 </p>
 
